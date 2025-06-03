@@ -68,15 +68,18 @@ class Login extends Component{
 
     render(){
         return(
-            <div className="login">
-                {/* conditional rendering */}
+            <div>
+                <h1>Login</h1>
+                <div className="container">
+                    {/* conditional rendering */}
                 {this.state.showLoginMessage && <div>Login Successful</div>}
-                {this.state.hasLoginFailed && <div>Login Failed</div>}
+                {this.state.hasLoginFailed && <div className="alert alert-warning">Login Failed</div>}
                 {/* <ShowLoginSuccessful showLoginMessage={this.state.showLoginMessage}/>
                 <ShowInvalidLogin hasLoginFailed={this.state.hasLoginFailed}/> */}
                 Username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange}></input>
                 Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange}></input>
-                <button onClick={this.loginClicked}>Login</button>
+                <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
+                </div>
             </div>
         )
     }

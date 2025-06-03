@@ -19,7 +19,8 @@ class ListTodos extends Component{
         return(
             <div>
                 <h1>Todo list</h1>
-                <table>
+                <div className="container">
+                    <table className="table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -42,6 +43,7 @@ class ListTodos extends Component{
                         
                     </tbody>
                 </table>
+                </div>
             </div>
         )
     }

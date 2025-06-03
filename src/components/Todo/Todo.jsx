@@ -17,7 +17,6 @@ class TodoApp extends Component{
 
         return(
             <div className="todoApp">
-                <div className="title">Todo App</div>
                 <Router>
                     <HeaderComponent/>
                     <Routes>
