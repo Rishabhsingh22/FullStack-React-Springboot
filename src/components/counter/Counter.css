@@ -1,0 +1,29 @@
+button{
+    font-size: 16px;
+    background-color: aqua;
+    padding: 16px;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 100px;
+
+}
+
+.count{
+    font-size: 32px;
+    padding: 16px;
+    align-self: center;
+}
+.parent-count{
+    font-size: 64px;
+    padding: 16px;
+    align-self: center;
+    color: #000;
+}
+.reset{
+    font-size: 16px;
+    background-color: rgb(255, 0, 0);
+    padding: 16px;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 200px;
+}
