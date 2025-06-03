@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+// import './bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Counter from './components/counter/Counter';
 import TodoApp from './components/Todo/Todo'
 
