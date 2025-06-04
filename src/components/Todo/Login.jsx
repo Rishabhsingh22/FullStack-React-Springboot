@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Welcome from "./Welcome";
+import AuthenticationService from "./AuthenticationService";
 
 class Login extends Component{
 
@@ -33,7 +34,8 @@ class Login extends Component{
        console.log(this.state); 
        const { navigate } = this.props;
        if(this.state.username==="rishabh22" && this.state.password==="pass"){
-        console.log("Successful"); 
+        console.log("Successful");
+        AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password); 
 
         // this.props.history.push("/welcome"); // older version - REACT 5
 
