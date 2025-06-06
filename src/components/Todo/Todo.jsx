@@ -6,6 +6,7 @@ import WithNavigation from "./WithNavigation";
 import WithParams from "./WithParams";
 import ListTodos from "./TodosList";
 import AuthenticationService from "./AuthenticationService";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 class TodoApp extends Component{
     
@@ -26,9 +27,12 @@ class TodoApp extends Component{
                     <Route path="/" exact element={<LoginComponentWithNavigation />}/>
                     <Route path="/login" element={<LoginComponentWithNavigation />}/>
                     {/* <Route path="/welcome" element={<Welcome/>}/> */} 
-                    <Route path="/welcome/:name" element={<WelcomeComponentWithParams/>}/>
-                    <Route path="/todos" element={<ListTodos/>}/>
-                    <Route path="/logout" element={<LogoutComponent/>}/>
+                    {/* <AuthenticatedRoute path="/welcome/:name" element={<WelcomeComponentWithParams />} />  // React- 5 older version syntax */}  
+                    <Route path="/welcome/:name" element={ <AuthenticatedRoute><WelcomeComponentWithParams /></AuthenticatedRoute>} />
+                    <Route path="/todos" element={ <AuthenticatedRoute><ListTodos /></AuthenticatedRoute>} />
+                    <Route path="/logout" element={ <AuthenticatedRoute><LogoutComponent /></AuthenticatedRoute>} />
+                    {/* <Route path="/todos" element={<ListTodos/>}/> 
+                    <Route path="/logout" element={<LogoutComponent/>}/> */}
                     <Route path="*" element={<ErrorComponent/>}/>
                     </Routes>
                     <FooterComponent/>
@@ -47,7 +51,7 @@ function ErrorComponent(){
 class HeaderComponent extends Component{
     render(){
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
-        console.log(isUserLoggedIn);
+        console.log("isUserLoggedIn- ",isUserLoggedIn);
         return(
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
