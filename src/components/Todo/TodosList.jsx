@@ -1,21 +1,51 @@
 import React, {Component} from "react";
+import TodoDataSrevice from "../../api/todo/TodoDataSrevice";
+import AuthenticationService from "./AuthenticationService";
 
 class ListTodos extends Component{
 
     constructor(props){
+        console.log("constructor");
         super(props);
 
         this.state = {
             todos: [
-                {id:1, description: "Learn React", done: false, targetDate: new Date()},
-                {id:2, description: "Become Java Expert", done: false, targetDate: new Date()},
-                {id:3, description: "Learn Springboot", done: false, targetDate: new Date()},
-                {id:4, description: "Learn JPA ", done: false, targetDate: new Date()}
+                // {id:1, description: "Learn React", done: false, targetDate: new Date()},
+                // {id:2, description: "Become Java Expert", done: false, targetDate: new Date()},
+                // {id:3, description: "Learn Springboot", done: false, targetDate: new Date()},
+                // {id:4, description: "Learn JPA ", done: false, targetDate: new Date()}
             ]
         }
     }
 
+    componentWillUnmount(){
+        console.log("componentWillUnmount");
+
+    }
+
+    // shouldComponentUpdate(nextProp, nextState){
+    //     console.log("shouldComponentUpdate");
+    //     console.log(nextProp);
+    //     console.log(nextState);
+    //     return false;
+    // }
+
+    componentDidMount(){
+        console.log("componentDidMount");
+        let user = AuthenticationService.getLoggedInUser();
+        TodoDataSrevice.retrieveAllTodos(user)
+        .then(
+            response=>{
+                // console.log(response)
+                this.setState(()=>{
+                    return {todos: response.data}
+                })
+            }
+        )
+    }
+
     render(){
+        console.log("render");
         return(
             <div>
                 <h1>Todo list</h1>
