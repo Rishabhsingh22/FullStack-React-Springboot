@@ -8,19 +8,32 @@ class TodoComponent extends Component{
         
         this.state = {
             id: this.props.params.id,
-            description: 'Learn forms',
+            description: 'Learn forms new1',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
 
+        this.onSubmit = this.onSubmit.bind(this);
+
+    }
+
+    onSubmit(values){
+        console.log(values)
     }
 
     render(){
+        // let description = this.state.description;
+        // let targetDate = this.state.targetDate;
+
+        // destructuring
+        let {description, targetDate} = this.state;
         return(
             // <div>Todo Component for id: {this.props.params.id}</div>
             <div>
                 <h1>Todo</h1>
                 <div className="container">
-                    <Formik>
+                    <Formik initialValues={{description, targetDate}}
+                        onSubmit={this.onSubmit}
+                        >
                         {
                             (props) => (
                                 <Form>
