@@ -1,6 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import moment from "moment";
 import React, { Component } from "react";
+import AuthenticationService from "./AuthenticationService";
+import TodoDataSrevice from "../../api/todo/TodoDataSrevice";
 
 class TodoComponent extends Component{
     constructor(props) {
@@ -16,6 +18,16 @@ class TodoComponent extends Component{
         this.validate = this.validate.bind(this);
 
     }
+
+    componentDidMount(){
+        let username = AuthenticationService.getLoggedInUser();
+        TodoDataSrevice.retrieveTodo(username, this.state.id)
+            .then(response=>this.setState({
+                description:response.data.description,
+                targetDate:moment(response.data.targetDate).format('YYYY-MM-DD')
+            }))
+    }
+
     validate(values){
         // let errors = {description: "shoul have 4 characters"}
         let errors = {}
@@ -52,6 +64,7 @@ class TodoComponent extends Component{
                         validate={this.validate}
                         validateOnBlur={false}
                         validateOnChange={false}
+                        enableReinitialize={true}
                         >
                         {
                             (props) => (
