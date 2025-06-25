@@ -7,6 +7,8 @@ import WithParams from "./WithParams";
 import ListTodos from "./TodosList";
 import AuthenticationService from "./AuthenticationService";
 import AuthenticatedRoute from "./AuthenticatedRoute";
+import TodoComponent from "./TodoComponent";
+import WithNavigationAndParams from "./WithNavigationAndParam";
 
 class TodoApp extends Component{
     
@@ -17,6 +19,8 @@ class TodoApp extends Component{
     const LoginComponentWithNavigation = WithNavigation(Login);
     const WelcomeComponentWithParams = WithParams(Welcome);
     const HeaderComponentWithNavigation = WithNavigation(HeaderComponent);
+    const TodoComponentWithParams = WithParams(TodoComponent);
+    const ListTodosWithNavigation = WithNavigation(ListTodos);
 
         return(
             <div className="todoApp">
@@ -29,7 +33,8 @@ class TodoApp extends Component{
                     {/* <Route path="/welcome" element={<Welcome/>}/> */} 
                     {/* <AuthenticatedRoute path="/welcome/:name" element={<WelcomeComponentWithParams />} />  // React- 5 older version syntax */}  
                     <Route path="/welcome/:name" element={ <AuthenticatedRoute><WelcomeComponentWithParams /></AuthenticatedRoute>} />
-                    <Route path="/todos" element={ <AuthenticatedRoute><ListTodos /></AuthenticatedRoute>} />
+                    <Route path="/todos/:id" element={ <AuthenticatedRoute><TodoComponentWithParams /></AuthenticatedRoute>} />
+                    <Route path="/todos" element={ <AuthenticatedRoute><ListTodosWithNavigation /></AuthenticatedRoute>} />
                     <Route path="/logout" element={ <AuthenticatedRoute><LogoutComponent /></AuthenticatedRoute>} />
                     {/* <Route path="/todos" element={<ListTodos/>}/> 
                     <Route path="/logout" element={<LogoutComponent/>}/> */}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 class Welcome extends Component{
     render(){
+        console.log(this.props)
         return(
             <>
             <h1>Welcome!</h1>
