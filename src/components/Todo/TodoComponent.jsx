@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import moment from "moment";
 import React, { Component } from "react";
 
@@ -13,11 +13,27 @@ class TodoComponent extends Component{
         }
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.validate = this.validate.bind(this);
 
     }
+    validate(values){
+        // let errors = {description: "shoul have 4 characters"}
+        let errors = {}
+        // console.log("From validate - ",values)
+        if(!values.description){
+            errors.description = 'Enter a description'
+        }else if(values.description.length<5){
+            errors.description = "Enter atleast 5 character in description"
+        }
 
+        if(!moment(values.targetDate).isValid()){
+            errors.targetDate = "Enter a valid target date"
+        }
+
+        return errors;
+    }
     onSubmit(values){
-        console.log(values)
+        console.log("From submit - ",values)
     }
 
     render(){
@@ -33,10 +49,15 @@ class TodoComponent extends Component{
                 <div className="container">
                     <Formik initialValues={{description, targetDate}}
                         onSubmit={this.onSubmit}
+                        validate={this.validate}
+                        validateOnBlur={false}
+                        validateOnChange={false}
                         >
                         {
                             (props) => (
                                 <Form>
+                                    <ErrorMessage name="description" component="div" className="alert alert-warning"></ErrorMessage>
+                                    <ErrorMessage name="targetDate" component="div" className="alert alert-warning"></ErrorMessage>
                                     <fieldset className="form-group">
                                         <label>Description</label>
                                         <Field className="form-control" type="text" name="description"></Field>
