@@ -10,7 +10,7 @@ class TodoComponent extends Component{
         
         this.state = {
             id: this.props.params.id,
-            description: 'Learn forms new1',
+            description: '',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
 
@@ -46,6 +46,14 @@ class TodoComponent extends Component{
     }
     onSubmit(values){
         console.log("From submit - ",values)
+        console.log("From submit - ",this.props)
+        let username = AuthenticationService.getLoggedInUser();
+        const {navigate} = this.props;
+        TodoDataSrevice.updateTodo(username, this.state.id, {
+            id:this.state.id,
+            description: values.description,
+            targetDate: values.targetDate
+        }).then(()=> navigate('/todos'))
     }
 
     render(){

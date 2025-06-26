@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 function WithNavigationAndParams(Component){
     function WitNavAndParamProp(props){
         const navigate = useNavigate();
-        const params = useNavigate();
+        const params = useParams();
         return <Component {...props} navigate={navigate} params={params}/>;
     }
 

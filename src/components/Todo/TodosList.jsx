@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import TodoDataSrevice from "../../api/todo/TodoDataSrevice";
 import AuthenticationService from "./AuthenticationService";
+import moment from "moment";
 
 class ListTodos extends Component{
 
@@ -16,6 +17,7 @@ class ListTodos extends Component{
         this.deleteTodo = this.deleteTodo.bind(this)
         this.updateTodo = this.updateTodo.bind(this)
         this.refreshTodos = this.refreshTodos.bind(this);
+        this.addTodo = this.addTodo.bind(this);
     }
 
     componentWillUnmount(){
@@ -66,14 +68,21 @@ class ListTodos extends Component{
         const { navigate } = this.props;
         navigate(`/todos/${id}`)
     }
+    addTodo(){
+        console.log("Add: ");
+        const { navigate } = this.props;
+        navigate(`/todos/-1`)
+    }
 
     render(){
         console.log("render");
+        console.log(this.state);
         return(
             <div>
                 <h1>Todo list</h1>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
+                    
                     <table className="table">
                     <thead>
                         <tr>
@@ -90,8 +99,8 @@ class ListTodos extends Component{
                             todo => <tr key={todo.id}>
                             <td>{todo.id}</td>
                             <td>{todo.description}</td>
-                            <td>{todo.done.toString()}</td>
-                            <td>{todo.targetDate.toString()}</td>
+                            <td>{todo.done!=null?todo.done.toString():'-'}</td>
+                            <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
                             <td><div>
                             <button className="btn btn-success" onClick={()=> this.updateTodo(todo.id)}>Update</button>
                             <button className="btn btn-warning" onClick={()=> this.deleteTodo(todo.id)}>Delete</button>
@@ -102,6 +111,7 @@ class ListTodos extends Component{
                         
                     </tbody>
                 </table>
+                <div className="d-flex align-self-start ml-auto"><button className="btn btn-primary" onClick={this.addTodo}>Add Todo</button></div>
                 </div>
             </div>
         )
