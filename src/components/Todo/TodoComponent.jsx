@@ -20,6 +20,10 @@ class TodoComponent extends Component{
     }
 
     componentDidMount(){
+        if(this.state.id===-1){
+            return
+        }
+
         let username = AuthenticationService.getLoggedInUser();
         TodoDataSrevice.retrieveTodo(username, this.state.id)
             .then(response=>this.setState({
@@ -49,11 +53,20 @@ class TodoComponent extends Component{
         console.log("From submit - ",this.props)
         let username = AuthenticationService.getLoggedInUser();
         const {navigate} = this.props;
-        TodoDataSrevice.updateTodo(username, this.state.id, {
+
+         if(this.state.id===-1){
+            TodoDataSrevice.createTodo(username,{
             id:this.state.id,
             description: values.description,
             targetDate: values.targetDate
-        }).then(()=> navigate('/todos'))
+            }).then(()=> navigate('/todos'))
+        }else{
+            TodoDataSrevice.updateTodo(username, this.state.id, {
+            id:this.state.id,
+            description: values.description,
+            targetDate: values.targetDate
+            }).then(()=> navigate('/todos'))
+        }
     }
 
     render(){

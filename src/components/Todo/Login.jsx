@@ -33,25 +33,33 @@ class Login extends Component{
     loginClicked(){
        console.log(this.state); 
        const { navigate } = this.props;
-       if(this.state.username==="rishabh22" && this.state.password==="pass"){
-        console.log("Successful");
-        AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password); 
+    //    if(this.state.username==="rishabh22" && this.state.password==="pass"){
+    //     console.log("Successful");
+    //     AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password); 
 
-        // this.props.history.push("/welcome"); // older version - REACT 5
+    //     // this.props.history.push("/welcome"); // older version - REACT 5
 
-        // This prop is injected from the HOC in WithNavigation component
-        navigate(`/welcome/${this.state.username}`); // REACT 6 and newer version
+    //     // This prop is injected from the HOC in WithNavigation component
+    //     navigate(`/welcome/${this.state.username}`); // REACT 6 and newer version
 
-        // this.setState(()=>{return {showLoginMessage: true}})
-        // this.setState(()=>{return {hasLoginFailed: false}})
-        }
-       else {
-        console.log("Failed"); 
+    //     // this.setState(()=>{return {showLoginMessage: true}})
+    //     // this.setState(()=>{return {hasLoginFailed: false}})
+    //     }
+    //    else {
+    //     console.log("Failed"); 
+    //     this.setState(()=>{return {showLoginMessage: false}})
+    //     this.setState(()=>{return {hasLoginFailed: true}})
+    //    }
+
+       AuthenticationService.executeBasicAuthService(this.state.username,this.state.password)
+       .then(()=>{
+        // const { navigate } = this.props;
+        AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+        navigate(`/welcome/${this.state.username}`);
+       }).catch(()=>{
         this.setState(()=>{return {showLoginMessage: false}})
         this.setState(()=>{return {hasLoginFailed: true}})
-       }
-        
-
+       })
 
     }
 
